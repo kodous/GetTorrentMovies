@@ -1,0 +1,19 @@
+{
+    "series": [
+        {
+            "name": "Gomorrah",
+            "episode": "07",
+            "season": "03"
+        },
+        {
+            "name": "the good doctor",
+            "episode": "09",
+            "season": "03"
+        },
+        {
+            "name": "shameless",
+            "episode": "03",
+            "season": "10"
+        }
+    ]
+}
