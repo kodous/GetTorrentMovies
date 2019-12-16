@@ -11,6 +11,7 @@ class IMDBSeries(JSONManager):
         self.months = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
                        'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
         self.currentSeason = 1
+        # this will contain an IMDB episode Object
         self.currentEpisode = ""
         self.airingDate = ""
 
@@ -27,12 +28,12 @@ class IMDBSeries(JSONManager):
 
         if next_episode <= number_of_episodes:
             self.currentEpisode = serial['episodes'][self.currentSeason][next_episode]
-            return self.currentEpisode
+            return self.currentSeason, next_episode
         # we pass to the next season
         elif self.currentSeason < number_of_seasons:
             self.currentEpisode = serial['episodes'][self.currentSeason+1][1]
-            self.currentEpisode = self.currentSeason + 1
-            return self.currentEpisode
+            self.currentSeason = self.currentSeason + 1
+            return self.currentSeason, 1
         else:
             return 'there is no next episode'
 
@@ -51,7 +52,3 @@ class IMDBSeries(JSONManager):
         self.SetEpisodeNumber(self.currentEpisode)
 
 
-imdb = IMDBSeries('shameless')
-imdb.GetNextEpisode('10', '03')
-print(imdb.GetAiringDate())
-print(imdb.IsDatePassed())

@@ -14,6 +14,7 @@ class FirstPageScrapper:
         self.series_name = series
         self.preferredUploader = ['worldmkv', '720p.WEB', 'WEB-DL']
         self.good_episodes = []
+        self.actualResultsPage = 1
         self.site = "https://www.1337x.am"
 
     def GetAllNames(self):
@@ -50,7 +51,8 @@ class FirstPageScrapper:
         if not os.path.isfile(self.file_path):
             if not second:
                 name_to_search.replace(" ", "%20")
-                url = "https://www.1337x.am/sort-search/" + name_to_search + "/time/desc/1/"
+                url = "https://www.1337x.am/sort-search/" + name_to_search + "/time/desc/" + \
+                      str(self.actualResultsPage) + "/"
             else:
                 url = self.good_episodes[0]
             r = requests.get(url)
@@ -60,33 +62,45 @@ class FirstPageScrapper:
             file_writer.write(str(r.content))
             file_writer.close()
 
-    def HTMLToSoup(self):
-        self.SaveHTMLToFile(self.series_name, True)
+    def HTMLToSoup(self, second=False):
+        self.SaveHTMLToFile(self.series_name, second)
         file_reader = open(self.filename, 'r')
         web_contents = BeautifulSoup(file_reader.read(), 'html5lib')
         return web_contents
 
     def ExtractNamesAndLinks(self):
-        table_of_all_episodes = self.HTMLToSoup().find('table',
-                                                       attrs={
-                                                           'class': 'table-list table table-responsive table-striped'})
+        # TODO Compare last episode number on the page with the episode we are looking for
         different_uploader = []
-        # go through all episodes
-        for tds in table_of_all_episodes.tbody:
-            class_name = tds.find(attrs={'class': "coll-1 name"})
-            episode_name = class_name.find_all('a')[1]
-            episode_size = tds.find_all('td')[4].text
-            episode_size2 = episode_size[0: episode_size.index(" ")]
-            if self.CompareNames(str(episode_name.string)) and self.CompareSizes(episode_size2) and \
-                    self.CheckSeasonAndEpisode(episode_name.string):
+        link_found = False
+        while len(self.good_episodes) == 0 and len(different_uploader) == 0:
+            table_of_all_episodes = self.HTMLToSoup().find('table',
+                                                           attrs={
+                                                               'class': 'table-list table table-responsive table-striped'})
+            # go through all episodes
+            for tds in table_of_all_episodes.tbody:
+                class_name = tds.find(attrs={'class': "coll-1 name"})
+                episode_name = class_name.find_all('a')[1]
+                episode_size = tds.find_all('td')[4].text
+                episode_size2 = episode_size[0: episode_size.index(" ")]
+                if self.CompareNames(str(episode_name.string)) and self.CompareSizes(episode_size2) and \
+                        self.CheckSeasonAndEpisode(episode_name.string):
 
-                if self.CheckUploader(episode_name.string):
-                    self.good_episodes.append(self.site + episode_name.get('href'))
-                else:
-                    different_uploader.append(self.site + episode_name.get('href'))
+                    if self.CheckUploader(episode_name.string):
+                        self.good_episodes.append(self.site + episode_name.get('href'))
+                        link_found = True
+                    else:
+                        different_uploader.append(self.site + episode_name.get('href'))
+                        link_found = True
+            # go to the next result page
+            if not link_found:
+                self.actualResultsPage += 1
+                self.filename = 'pageresult' + str(self.actualResultsPage) + '.html'
+                self.file_path = os.path.join(os.getcwd(), self.filename)
 
         if len(self.good_episodes) != 0:
             return self.good_episodes[0]
         self.good_episodes = different_uploader
-        return different_uploader
+        return different_uploader[0]
+
+    # TODO Sort returned links by number of seeders and leechers
 
