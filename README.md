@@ -12,6 +12,7 @@ this is a python package that downloads torrent links from the internet
 * JSONManager: it saves, updates and reads a json file, where the tv series are saved, this way, the next time you want to download an 
              episode, it looks directly for the next episode compared to the one in the JSON file.
 * MainProgram is the main program. if all goes well, the link of the magnet torrent will be copied to the clipboard automatically
+PS: I download the HTML page so that later on if I need to work on that page, i won't send endless requests to the server
 
 # overview
 the architecture of the program is as follows:
