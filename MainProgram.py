@@ -28,7 +28,8 @@ if resp == 'a':
         split(",")
     serial = newSerial[0].strip()
     currentEpisode = newSerial[1].strip()
-    currentEpisode = newSerial[2].strip()
+    currentSeason = newSerial[2].strip()
+    jsonMan.AddSeries(serial, currentSeason, currentEpisode)
 else:
     serial = input("enter the name of serial to download").strip()
 # get the json Data
