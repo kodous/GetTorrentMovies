@@ -1,12 +1,12 @@
 # GetTorrentMovies
 this is a python package that downloads torrent links from the internet
-* I uses python 3.6 and windows10
-for the moment it only downloads torrent links for episodes of tv series from https://1377x.am, it's a work in progress
+* I use python 3.6 and windows10
+* for the moment it only downloads torrent links for episodes of tv series from https://1377x.am, it's a work in progress
  and many comments and functions are missing.
 
 # Getting Started
-* ResultsPageScrapper: it's a class that analyzes the page of the results sorted by the added date
-* TorrentPageScrapper: it inherits from ResultPageScrapper and and analyzes the page of the torrent page in order to get the link
+* ResultsPageScrapper: it's a class that analyzes the page of the results sorted by the added date 
+* TorrentPageScrapper: it inherits from ResultsPageScrapper and analyzes the page of the torrent in order to get the link
                      of the magnet torrent
 * IMDBSeries: it looks for the next tv episode to download on the IMDB server if the airing date had passed
 * JSONManager: it saves, updates and reads a json file, where the tv series are saved, this way, the next time you want to download an 
