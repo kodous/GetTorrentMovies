@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 
 
-class FirstPageScrapper:
+class ResultsPageScrapper:
 
     def __init__(self, series, episode, season, filename="pageContents.html"):
         # initialization

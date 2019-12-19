@@ -1,12 +1,12 @@
-from FirstPageScrapper import FirstPageScrapper
+from ResultsPageScrapper import ResultsPageScrapper
 from bs4 import BeautifulSoup
 import pyperclip
 
 
-class SecondPageScrapper(FirstPageScrapper):
+class TorrentPageScrapper(ResultsPageScrapper):
 
     def __init__(self, series, episode, season, torrentLink, filename='secondPageContents.html'):
-        FirstPageScrapper.__init__(self, series, episode, season, filename)
+        ResultsPageScrapper.__init__(self, series, episode, season, filename)
         self.good_episodes.append(torrentLink)
         self.filename = filename
 

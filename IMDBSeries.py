@@ -47,8 +47,5 @@ class IMDBSeries(JSONManager):
                                        int(self.airingDate[0]))
         return formatted_date < datetime.date.today()
 
-    def UpdateJSONFile(self):
-        self.SetSeasonNumber(self.currentSeason)
-        self.SetEpisodeNumber(self.currentEpisode)
 
 

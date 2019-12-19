@@ -1,5 +1,5 @@
-from FirstPageScrapper import FirstPageScrapper
-from SecondPageScrapper import SecondPageScrapper
+from ResultsPageScrapper import ResultsPageScrapper
+from TorrentPageScrapper import TorrentPageScrapper
 import json
 episode = "09"
 season = "03"
