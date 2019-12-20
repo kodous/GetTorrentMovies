@@ -33,7 +33,7 @@ beautifulSoup: it is used to scrap web pages
 ```
 pyperclip: it is used to manage the clipboard
 ```
-  pip install clipboard
+  pip install pyperclip
 ```
 IMDB: it used to communicate with the imdb servers (look up this doc: https://imdbpy.readthedocs.io/en/latest/usage/series.html)
 ```
