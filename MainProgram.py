@@ -1,7 +1,8 @@
 from IMDBSeries import IMDBSeries
 from JSONManager import JSONManager
-from ResultsPageScrapper import ResultsPageScrapper
-from TorrentPageScrapper import TorrentPageScrapper
+from SeriesResultsPageScrapper import ResultsPageScrapper
+from SeriesTorrentPageScrapper import TorrentPageScrapper
+from MovieManager import MovieManager
 import os
 
 
@@ -22,39 +23,46 @@ def SeasonEpisodeNumbersToString(season, episode):
 jsonMan = JSONManager()
 jsonMan.ReadJSONData()
 
-resp = input("to add a tv Series, type a, else: hit any key").lower()
-if resp == 'a':
-    newSerial = input("enter the data formatted this way: name of the tvseries,number of episode,number of season").\
-        split(",")
-    serial = newSerial[0].strip()
-    currentEpisode = newSerial[1].strip()
-    currentSeason = newSerial[2].strip()
-    jsonMan.AddSeries(serial, currentSeason, currentEpisode)
+resp = input("to download a movie type m, else, type any key").lower()
+if resp == "m":
+    movie = input("the name of the movie")
+    mm = MovieManager(movie)
+    mm.GetTorrentLink()
 else:
-    serial = input("enter the name of serial to download").strip()
-# get the json Data
-currentEpisode = jsonMan.GetEpisodeNumber(serial)
-currentSeason = jsonMan.GetSeasonNumber(serial)
+    resp = input("to add a tv series, hit a, else hit any key")
+    if resp == 'a':
+        newSerial = input("enter the data formatted this way: name of the tvseries,number of episode,number of season").\
+            split(",")
+        serial = newSerial[0].strip()
+        currentEpisode = newSerial[1].strip()
+        currentSeason = newSerial[2].strip()
+        jsonMan.AddSeries(serial, currentSeason, currentEpisode)
+    else:
+        serial = input("enter the name of serial to download").strip()
+    # get the json Data
+    currentEpisode = jsonMan.GetEpisodeNumber(serial)
+    currentSeason = jsonMan.GetSeasonNumber(serial)
 
-currentSeason, currentEpisode = SeasonEpisodeNumbersToString(currentSeason, currentEpisode)
+    currentSeason, currentEpisode = SeasonEpisodeNumbersToString(currentSeason, currentEpisode)
 
-# check the series on IMDB
-imdb = IMDBSeries(serial)
-# we pass the current season and episode numbers, and in return we get the episode and season to download
-nextSeason, nextEpisode = imdb.GetNextEpisode(currentSeason, currentEpisode)
-str_nextSeason, str_nextEpisode = SeasonEpisodeNumbersToString(nextSeason, nextEpisode)
+    # check the series on IMDB
+    imdb = IMDBSeries(serial)
+    # we pass the current season and episode numbers, and in return we get the episode and season to download
+    nextSeason, nextEpisode = imdb.GetNextEpisode(currentSeason, currentEpisode)
 
-imdb.GetAiringDate()
-if imdb.IsDatePassed():
-    fp = ResultsPageScrapper(serial, str_nextEpisode, str_nextSeason, filename=serial +
-                                                                               str_nextSeason + str_nextEpisode + '1.html')
-    link = fp.ExtractNamesAndLinks()
-    sp = TorrentPageScrapper(serial, str_nextEpisode, str_nextSeason, link,
-                             filename=serial + str_nextSeason + str_nextEpisode +
-                                     "torrent.html")
-    sp.ExtractLinkTorrent()
-    jsonMan.SetSeasonNumber(serial, str_nextSeason)
-    jsonMan.SetEpisodeNumber(serial, str_nextEpisode)
-else:
-    print('not passed')
-DeleteHTMLFiles()
+    str_nextSeason, str_nextEpisode = SeasonEpisodeNumbersToString(nextSeason, nextEpisode)
+
+    imdb.GetAiringDate()
+    if imdb.IsDatePassed():
+        fp = ResultsPageScrapper(serial, str_nextEpisode, str_nextSeason, filename=serial +
+                                                                                   str_nextSeason + str_nextEpisode + '1.html')
+        link = fp.ExtractNamesAndLinks()
+        sp = TorrentPageScrapper(serial, str_nextEpisode, str_nextSeason, link,
+                                 filename=serial + str_nextSeason + str_nextEpisode +
+                                         "torrent.html")
+        sp.ExtractLinkTorrent()
+        jsonMan.SetSeasonNumber(serial, str_nextSeason)
+        jsonMan.SetEpisodeNumber(serial, str_nextEpisode)
+    else:
+        print('not passed')
+    DeleteHTMLFiles()
