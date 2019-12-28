@@ -23,22 +23,22 @@ def SeasonEpisodeNumbersToString(season, episode):
 jsonMan = JSONManager()
 jsonMan.ReadJSONData()
 
-resp = input("to download a movie type m, else, type any key").lower()
+resp = input("to download a movie type m, else, type any key: ").lower()
 if resp == "m":
-    movie = input("the name of the movie")
+    movie = input("the name of the movie: ")
     mm = MovieManager(movie)
     mm.GetTorrentLink()
 else:
-    resp = input("to add a tv series, hit a, else hit any key")
+    resp = input("to add a tv series, hit a, else hit any key: ")
     if resp == 'a':
-        newSerial = input("enter the data formatted this way: name of the tvseries,number of episode,number of season").\
+        newSerial = input("enter the data formatted this way: name of the tvseries,number of episode,number of season: ").\
             split(",")
         serial = newSerial[0].strip()
         currentEpisode = newSerial[1].strip()
         currentSeason = newSerial[2].strip()
         jsonMan.AddSeries(serial, currentSeason, currentEpisode)
     else:
-        serial = input("enter the name of serial to download").strip()
+        serial = input("enter the name of serial to download: ").strip()
     # get the json Data
     currentEpisode = jsonMan.GetEpisodeNumber(serial)
     currentSeason = jsonMan.GetSeasonNumber(serial)
