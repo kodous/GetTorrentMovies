@@ -78,19 +78,18 @@ class ResultsPageScrapper:
                                                                'class': 'table-list table table-responsive table-striped'})
             # go through all episodes
             for tds in table_of_all_episodes.tbody:
-                class_name = tds.find(attrs={'class': "coll-1 name"})
-                episode_name = class_name.find_all('a')[1]
-                episode_size = tds.find_all('td')[4].text
-                episode_size2 = episode_size[0: episode_size.index(" ")]
-                if self.CompareNames(str(episode_name.string)) and self.CompareSizes(episode_size2) and \
+                episode_name_td = tds.find(attrs={'class': "coll-1 name"})
+                episode_name = episode_name_td.find_all('a')[1]
+                episode_size_td = tds.find_all('td')[4].text
+                episode_size = episode_size_td[0: episode_size_td.index(" ")]
+                if self.CompareNames(str(episode_name.string)) and self.CompareSizes(episode_size) and \
                         self.CheckSeasonAndEpisode(episode_name.string):
-
+                    
+                    link_found = True
                     if self.CheckUploader(episode_name.string):
                         self.good_episodes.append(self.site + episode_name.get('href'))
-                        link_found = True
                     else:
                         different_uploader.append(self.site + episode_name.get('href'))
-                        link_found = True
             # go to the next result page
             if not link_found:
                 self.actualResultsPage += 1
