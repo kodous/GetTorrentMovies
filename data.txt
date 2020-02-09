@@ -7,12 +7,12 @@
         },
         {
             "name": "the good doctor",
-            "episode": "10",
+            "episode": "12",
             "season": "03"
         },
         {
             "name": "shameless",
-            "episode": "05",
+            "episode": "08",
             "season": "10"
         }
     ]

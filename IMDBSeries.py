@@ -35,7 +35,8 @@ class IMDBSeries(JSONManager):
             self.currentSeason = self.currentSeason + 1
             return self.currentSeason, 1
         else:
-            return 'there is no next episode'
+            print('there is no next episode')
+            return 0, 0
 
     def GetAiringDate(self):
         self.airingDate = self.currentEpisode['original air date'].replace('.', '')
