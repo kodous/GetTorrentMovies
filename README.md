@@ -1,8 +1,7 @@
 # GetTorrentMovies
 this is a python package that downloads torrent links from the internet
 * I use python 3.6 and windows10
-* for the moment it only downloads torrent links for episodes of tv series from https://1377x.am, it's a work in progress
- and many comments and functions are missing.
+* tv series are downloaded from https://www.1377x.am and movies are downloaded from hhtps://www.yts.ws 
 
 # Getting Started
 * ResultsPageScrapper: it's a class that analyzes the page of the results sorted by the added date 

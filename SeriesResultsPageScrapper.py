@@ -88,13 +88,12 @@ class ResultsPageScrapper:
                 episode_size = episode_size_object[0: episode_size_object.index(" ")]
                 if self.CheckName(str(episode_name.string)) and self.CheckSize(episode_size)and \
                         self.CheckSeasonAndEpisode(episode_name.string):
-
+                    
+                    link_found = True
                     if self.CheckUploader(episode_name.string):
                         self.good_episodes.append(self.site + episode_name.get('href'))
-                        link_found = True
                     else:
                         different_uploader.append(self.site + episode_name.get('href'))
-                        link_found = True
             # go to the next result page
             if not link_found:
                 self.actualResultsPage += 1
