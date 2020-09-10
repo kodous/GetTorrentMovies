@@ -1,7 +1,7 @@
 # GetTorrentMovies
 this is a python package that downloads torrent links from the internet
-* I use python 3.6 and windows10
-* tv series are downloaded from https://www.1377x.am and movies are downloaded from hhtps://www.yts.ws 
+* I use python 3.6 and Ubuntu
+* tv series are downloaded from https://www.1377x.am and movies are downloaded from https://yifyddl.co/
 
 # Getting Started
 * ResultsPageScrapper: it's a class that analyzes the page of the results sorted by the added date 
@@ -18,7 +18,7 @@ the architecture of the program is as follows:
  * 1- read JSON file and extract the Episode and season number written on the file
  * 2- create an IMDBSeries object which will check if there is a next episode or not, and whether is has been aired or not yet
     (in the sake of the tutorial, we will suppose it had been aired)
- * 3- pass the episode and season number to the ResultsPageScrapper as arguments, so it will return later a link to the page
+ * 3- pass the episode and season number to the SeriesManager as arguments, so it will return later a link to the page
     of the selected episode ( the chosen episode will have a size between 200 and 500 Mo and it is preferable to be 720p or downloaded
     by some uploaders )
  * 4- the link of the episode page will then be passed as an argument to a TorrentPageScrapper object who will eventually copy the
@@ -38,4 +38,8 @@ IMDB: it used to communicate with the imdb servers (look up this doc: https://im
 ```
  pip install IMDbPY
 ```
-  
+qBittorrent: this is the terminal on which the movies will get downloaded
+```
+pip install python-qbittorrent
+```
+you need to install as well QBittorrent software on your computer
