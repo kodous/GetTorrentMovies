@@ -4,8 +4,8 @@ this is a python package that downloads torrent links from the internet
 * tv series are downloaded from https://www.1377x.am and movies are downloaded from https://yifyddl.co/
 
 # Getting Started
-* ResultsPageScrapper: it's a class that analyzes the page of the results sorted by the added date 
-* TorrentPageScrapper: it inherits from ResultsPageScrapper and analyzes the page of the torrent in order to get the link
+* SeriesManager: it's a class that analyzes the page of the results sorted by the added date 
+* TorrentPageScrapper: it inherits from SeriesManager and analyzes the page of the torrent in order to get the link
                      of the magnet torrent
 * IMDBSeries: it looks for the next tv episode to download on the IMDB server if the airing date had passed
 * JSONManager: it saves, updates and reads a json file, where the tv series are saved, this way, the next time you want to download an 
@@ -42,4 +42,4 @@ qBittorrent: this is the terminal on which the movies will get downloaded
 ```
 pip install python-qbittorrent
 ```
-you need to install as well QBittorrent software on your computer
+you need to install as well QBittorrent software on your computer and start it before launching the script
