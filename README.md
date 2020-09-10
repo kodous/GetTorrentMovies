@@ -21,18 +21,13 @@ the architecture of the program is as follows:
  * 3- pass the episode and season number to the SeriesManager as arguments, so it will return later a link to the page
     of the selected episode ( the chosen episode will have a size between 200 and 500 Mo and it is preferable to be 720p or downloaded
     by some uploaders )
- * 4- the link of the episode page will then be passed as an argument to a TorrentPageScrapper object who will eventually copy the
-    magnet link torrent to the clipboard
+ * 4- the link of the episode page will then be passed as an argument to a TorrentPageScrapper object who will eventually get the torrent link to download
 				
 # Prerequisites
 in order for this to work on your computer you have to import certain modules:
 beautifulSoup: it is used to scrap web pages
 ```
   pip install beautifulsoup4
-```
-pyperclip: it is used to manage the clipboard
-```
-  pip install pyperclip
 ```
 IMDB: it used to communicate with the imdb servers (look up this doc: https://imdbpy.readthedocs.io/en/latest/usage/series.html)
 ```
